@@ -3,6 +3,8 @@ import { FiUsers, FiUserCheck, FiUserX } from 'react-icons/fi';
 
 import Header from '../../components/Header';
 import api from '../../services/api';
+import formatCurrency from '../../utils/formatCurrency';
+import formatDate from '../../utils/formatDate';
 
 import { Container, CardContainer, Card, TableContainer } from './styles';
 
@@ -12,9 +14,11 @@ interface Employee {
   position: string;
   CPF: string;
   UF: string;
-  salary: string;
+  salary: number;
   status: string;
   created_at: string;
+  formattedSalary: string;
+  formattedDate: string;
 }
 
 const Dashboard: React.FC = () => {
@@ -23,7 +27,16 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     async function loadEmployee(): Promise<void> {
       const { data } = await api.get<Employee[]>('employees');
-      setEmployees(data);
+
+      const formatedEmployees: Employee[] = data.map(
+        (employee: Employee): Employee => ({
+          ...employee,
+          formattedSalary: formatCurrency(employee.salary),
+          formattedDate: formatDate(new Date(employee.created_at)),
+        }),
+      );
+
+      setEmployees(formatedEmployees);
     }
     loadEmployee();
   }, []);
@@ -87,10 +100,7 @@ const Dashboard: React.FC = () => {
                   <td>{employee.CPF}</td>
                   <td>{employee.UF}</td>
                   <td>
-                    <strong>
-                      R$
-                      {employee.salary}
-                    </strong>
+                    <strong>{employee.formattedSalary}</strong>
                   </td>
                   <td>
                     <span>
@@ -106,7 +116,7 @@ const Dashboard: React.FC = () => {
                       {employee.status}
                     </span>
                   </td>
-                  <td>{employee.created_at}</td>
+                  <td>{employee.formattedDate}</td>
                 </tr>
               ))}
             </tbody>
