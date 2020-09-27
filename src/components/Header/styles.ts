@@ -48,7 +48,7 @@ export const Container = styled.div<ContainerProps>`
 
     @media (max-width: 1120px) {
       nav {
-        position: absolute;
+        position: fixed;
         background: #fff;
         top: 0;
         left: 0;
@@ -93,15 +93,31 @@ export const MenuOption = styled(Link)<IMenuOptionProps>`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: #000;
+    color: #363f5f;
     text-decoration: none;
     font-size: 16px;
     transition: opacity 0.2s;
     padding: 20px;
+    border-bottom: 2px solid #f0f2f5;
 
     &:hover {
       opacity: 0.6;
     }
+
+    svg {
+      color: #1edf92;
+    }
+
+    ${props =>
+      props.to === props.url &&
+      css`
+        background: #1edf92;
+        color: #fff;
+
+        svg {
+          color: #fff;
+        }
+      `}
   }
 
   @media (min-width: 1120px) {
