@@ -84,7 +84,7 @@ export const TableContainer = styled.section`
   .inactive {
     background: #1b5299;
   }
-  @media (max-width: 660px) {
+  @media (max-width: 659px) {
     table {
       margin-top: 32px;
       padding-top: 32px;
@@ -110,13 +110,12 @@ export const TableContainer = styled.section`
 
           td {
             display: block;
-            color: #969cb2;
-            font-size: 14px;
+            color: rgba(54, 63, 95, 0.8);
+            font-size: 16px;
 
             &:first-child {
               color: #363f5f;
               margin-bottom: 8px;
-              font-size: 16px;
             }
 
             > span {
@@ -129,7 +128,7 @@ export const TableContainer = styled.section`
     }
   }
 
-  @media screen and (min-width: 660px) and (max-width: 1120px) {
+  @media screen and (min-width: 660px) and (max-width: 1119px) {
     table {
       margin-top: 32px;
       padding-top: 32px;
