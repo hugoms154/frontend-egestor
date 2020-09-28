@@ -1,4 +1,6 @@
-import React, { TableHTMLAttributes } from 'react';
+import React, { TableHTMLAttributes, useEffect, useState } from 'react';
+import formatCurrency from '../../utils/formatCurrency';
+import formatDate from '../../utils/formatDate';
 
 import { Container } from './styles';
 // SelectHTMLAttributes<HTMLSelectElement
@@ -15,11 +17,27 @@ interface Employee {
   formattedDate: string;
 }
 interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
-  employees: Employee[];
+  inputEmployees: Employee[];
   titles: string[];
 }
 
-const Table: React.FC<TableProps> = ({ employees, titles }) => {
+const Table: React.FC<TableProps> = ({ inputEmployees, titles }) => {
+  const [employees, setEmployees] = useState<Employee[]>([]);
+  useEffect(() => {
+    function loadEmployee(): void {
+      const formatedEmployees: Employee[] = inputEmployees.map(
+        (employee: Employee): Employee => ({
+          ...employee,
+          formattedSalary: formatCurrency(employee.salary),
+          formattedDate: formatDate(new Date(employee.created_at)),
+        }),
+      );
+
+      setEmployees(formatedEmployees);
+    }
+    loadEmployee();
+  }, [inputEmployees]);
+
   return (
     <Container>
       <table>
@@ -28,13 +46,6 @@ const Table: React.FC<TableProps> = ({ employees, titles }) => {
             {titles.map(title => (
               <th key={title}>{title}</th>
             ))}
-            {/* <th>Nome</th>
-            <th>Cargo</th>
-            <th>CPF</th>
-            <th>UF</th>
-            <th>Salário</th>
-            <th>Status</th>
-            <th>Data</th> */}
           </tr>
         </thead>
         <tbody>

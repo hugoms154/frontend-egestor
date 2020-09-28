@@ -18,11 +18,6 @@ export const Container = styled.div<ContainerProps>`
     border-left: 2.5px solid #10bb77;
   }
 
-  div {
-    position: absolute;
-    right: 10px;
-  }
-
   & + div {
     margin-top: 10px;
   }
@@ -44,6 +39,8 @@ export const Container = styled.div<ContainerProps>`
 `;
 
 export const Error = styled(Tooltip)`
+  position: absolute;
+  right: 10px;
   height: 20px;
   margin-left: 16px;
   svg {

@@ -81,7 +81,7 @@ const Dashboard: React.FC = () => {
         </CardContainer>
         {employees.length !== 0 ? (
           <Table
-            employees={employees}
+            inputEmployees={employees}
             titles={['Nome', 'Cargo', 'CPF', 'UF', 'Salário', 'Status', 'Data']}
           />
         ) : (

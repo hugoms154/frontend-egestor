@@ -50,7 +50,7 @@ const Search: React.FC = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
 
   const handleSubmit = useCallback(
-    async (data: EmployeeData) => {
+    async (data: EmployeeData): Promise<void> => {
       try {
         formRef.current?.setErrors({});
 
@@ -74,11 +74,13 @@ const Search: React.FC = () => {
             .matches(
               /(RO|AC|AM|RR|PA|AP|TO|MA|PI|CE|RN|PB|PE|AL|SE|BA|MG|ES|RJ|SP|PR|SC|RS|MS|MT|GO|DF)/,
               'Apenas UFs válidas!',
-            ),
+            )
+            .uppercase(),
         });
 
         const schemaSalary = Yup.object().shape({
-          salary: Yup.string().required('Salário é obrigatório'),
+          min: Yup.string(),
+          max: Yup.string().required('Salário é obrigatório'),
         });
 
         const schemaStatus = Yup.object().shape({
@@ -131,12 +133,18 @@ const Search: React.FC = () => {
             value = `${day}/${month}/${year}`;
           }
 
-          const { data: responseData } = await api.get<Employee[]>(
+          const { data: responseData } = await api.get(
             `employees/${selected}`,
             {
               params: { value },
             },
           );
+
+          if (selected === 'UF') {
+            const { employees: innerEmployees } = responseData;
+            return setEmployees(innerEmployees);
+          }
+
           setEmployees(responseData);
         }
       } catch (err) {
@@ -170,6 +178,7 @@ const Search: React.FC = () => {
           }}
         >
           <Select
+            className="select"
             name="select"
             defaulOption="Selecione pelo que quer buscar"
             onChange={handleChangeSelect}
@@ -185,33 +194,61 @@ const Search: React.FC = () => {
           </Select>
 
           {selected === 'name' && (
-            <SearchInput name="name" placeholder="Nome" />
+            <SearchInput
+              name="name"
+              placeholder="Nome"
+              className="searchInput"
+            />
           )}
           {selected === 'position' && (
-            <SearchInput name="position" placeholder="Cargo" />
+            <SearchInput
+              name="position"
+              placeholder="Cargo"
+              className="searchInput"
+            />
           )}
-          {selected === 'CPF' && <SearchInput name="CPF" placeholder="CPF" />}
+          {selected === 'CPF' && (
+            <SearchInput name="CPF" placeholder="CPF" className="searchInput" />
+          )}
           {selected === 'date' && (
-            <SearchInput name="date" type="date" placeholder="Data" />
+            <SearchInput
+              name="date"
+              type="date"
+              placeholder="Data"
+              className="searchInput"
+            />
           )}
-          {selected === 'UF' && <SearchInput name="UF" placeholder="UF" />}
+          {selected === 'UF' && (
+            <SearchInput name="UF" placeholder="UF" className="searchInput" />
+          )}
           {selected === 'salary' && (
             <>
-              <SearchInput name="min" placeholder="Mínimo" />
-              <SearchInput name="max" placeholder="Máximo" />
+              <SearchInput
+                name="min"
+                placeholder="Mínimo"
+                className="searchInput"
+              />
+              <SearchInput
+                name="max"
+                placeholder="Máximo"
+                className="searchInput"
+              />
             </>
           )}
           {selected === 'status' && (
-            <SearchInput name="status" placeholder="Status" />
+            <SearchInput
+              name="status"
+              placeholder="Status"
+              className="searchInput"
+            />
           )}
 
           <button type="submit">Buscar</button>
-          <h1>WELMCOME</h1>
         </Form>
 
         {employees.length !== 0 ? (
           <Table
-            employees={employees}
+            inputEmployees={employees}
             titles={['Nome', 'Cargo', 'CPF', 'UF', 'Salário', 'Status', 'Data']}
           />
         ) : (

@@ -8,7 +8,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
 }
 
-const SearchInput: React.FC<InputProps> = ({ name, ...rest }) => {
+const SearchInput: React.FC<InputProps> = ({ name, className, ...rest }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { fieldName, defaultValue, registerField, error } = useField(name);
   useEffect(() => {
@@ -20,7 +20,7 @@ const SearchInput: React.FC<InputProps> = ({ name, ...rest }) => {
   }, [fieldName, registerField]);
 
   return (
-    <Container isErrored={!!error}>
+    <Container isErrored={!!error} className={className}>
       <input ref={inputRef} defaultValue={defaultValue} {...rest} />
 
       {error && (

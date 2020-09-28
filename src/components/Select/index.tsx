@@ -11,6 +11,7 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 
 const Select: React.FC<SelectProps> = ({
   name,
+  className,
   defaulOption,
   children,
   ...rest
@@ -26,7 +27,7 @@ const Select: React.FC<SelectProps> = ({
   }, [fieldName, registerField]);
 
   return (
-    <Container>
+    <Container className={className}>
       <select ref={selectRef} defaultValue={defaultValue} {...rest}>
         <option value="default" disabled>
           {defaulOption}
