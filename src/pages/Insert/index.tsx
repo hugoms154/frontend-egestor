@@ -55,7 +55,6 @@ const Insert: React.FC = () => {
             .uppercase(),
           created_at: Yup.date()
             .default(() => new Date().toISOString().substring(0, 10))
-            .min(new Date('01-01-1900'), 'Utilize uma data depois de 1900')
             .max(
               new Date(Date.now() + 3600 * 1000 * 24),
               'Utilize uma data até o dia de hoje',
@@ -89,8 +88,6 @@ const Insert: React.FC = () => {
           onSubmit={handleSubmit}
           initialData={{
             created_at: new Date().toISOString().substring(0, 10),
-            // .toISOString().substring(0, 10)
-            // created_at: new Intl.DateTimeFormat('pt-BR').format(new Date()),
           }}
         >
           <Input name="name" placeholder="Nome" />

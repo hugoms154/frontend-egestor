@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FiMenu, FiChevronRight, FiX } from 'react-icons/fi';
 
-import { Link, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 
 import { Container, MenuOption } from './styles';
 
