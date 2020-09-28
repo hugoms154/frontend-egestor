@@ -48,6 +48,7 @@ export const Container = styled.div<ContainerProps>`
 
     @media (max-width: 1120px) {
       nav {
+        z-index: 9999;
         position: fixed;
         background: #fff;
         top: 0;
