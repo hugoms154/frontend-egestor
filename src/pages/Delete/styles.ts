@@ -6,8 +6,20 @@ export const Container = styled.div`
   margin: 0 auto;
   padding: 40px 20px;
 
+  h1 {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 54px;
+    color: #363f5f;
+    text-align: center;
+  }
+
   form {
-    margin-top: 32px;
+    background: #fff;
+    text-align: center;
+    margin-top: 40px;
+    border-radius: 5px;
+    padding: 32px 64px;
 
     fieldset {
       display: flex;
@@ -18,24 +30,30 @@ export const Container = styled.div`
         width: 100%;
         height: 45px;
         border: 0px;
-        border-radius: 35px;
         padding: 0 20px;
         text-align: center;
-        &::placeholder {
-          color: rgba(204, 204, 204, 0.8);
+
+        height: 56px;
+        padding: 0 10px;
+        border-bottom: 2.5px solid transparent;
+        &:focus-within {
+          border-bottom: 2.5px solid #10bb77;
         }
       }
 
       button {
         width: 100%;
-        border: 0;
-        margin-top: 16px;
-        height: 45px;
-        border-radius: 35px;
-        background: #363f5f;
+        border-radius: 5px;
         color: #fff;
+        font-weight: 700;
+        border: 0;
+        background: #10bb77;
+        margin-top: 16px;
+        padding: 20px 32px;
+        transition: background-color 0.3s;
+
         &:hover {
-          background: rgba(54, 63, 95, 0.9);
+          background: rgba(16, 187, 119, 0.8);
         }
       }
     }

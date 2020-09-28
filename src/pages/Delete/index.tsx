@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { FiAlertCircle } from 'react-icons/fi';
 import Header from '../../components/Header';
 import api from '../../services/api';
@@ -125,8 +125,6 @@ const Delete: React.FC = () => {
                 iErrors.messages.map(message => (
                   <strong key={message}>{message}</strong>
                 ))}
-
-              {/* Verifique se o CPF está correto. */}
             </Error>
             <input
               value={iCPF}
