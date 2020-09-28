@@ -5,6 +5,15 @@ export const Container = styled.div`
   max-width: 1120px;
   margin: 0 auto;
   padding: 40px 20px;
+
+  h1 {
+    margin-top: 64px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 54px;
+    color: #969cb2;
+    text-align: center;
+  }
 `;
 
 export const Title = styled.h1`

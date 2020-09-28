@@ -78,50 +78,53 @@ const Dashboard: React.FC = () => {
             </strong>
           </Card>
         </CardContainer>
-
-        <TableContainer>
-          <table>
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Cargo</th>
-                <th>CPF</th>
-                <th>UF</th>
-                <th>Salário</th>
-                <th>Status</th>
-                <th>Data</th>
-              </tr>
-            </thead>
-            <tbody>
-              {employees.map(employee => (
-                <tr key={employee.id}>
-                  <td>{employee.name}</td>
-                  <td>{employee.position}</td>
-                  <td>{employee.CPF}</td>
-                  <td>{employee.UF}</td>
-                  <td>
-                    <strong>{employee.formattedSalary}</strong>
-                  </td>
-                  <td>
-                    <span>
-                      <span
-                        className={
-                          employee.status === 'BLOQUEADO'
-                            ? 'blocked'
-                            : employee.status === 'ATIVO'
-                            ? 'active'
-                            : 'inactive'
-                        }
-                      />
-                      {employee.status}
-                    </span>
-                  </td>
-                  <td>{employee.formattedDate}</td>
+        {employees.length !== 0 ? (
+          <TableContainer>
+            <table>
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Cargo</th>
+                  <th>CPF</th>
+                  <th>UF</th>
+                  <th>Salário</th>
+                  <th>Status</th>
+                  <th>Data</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </TableContainer>
+              </thead>
+              <tbody>
+                {employees.map(employee => (
+                  <tr key={employee.id}>
+                    <td>{employee.name}</td>
+                    <td>{employee.position}</td>
+                    <td>{employee.CPF}</td>
+                    <td>{employee.UF}</td>
+                    <td>
+                      <strong>{employee.formattedSalary}</strong>
+                    </td>
+                    <td>
+                      <span>
+                        <span
+                          className={
+                            employee.status === 'BLOQUEADO'
+                              ? 'blocked'
+                              : employee.status === 'ATIVO'
+                              ? 'active'
+                              : 'inactive'
+                          }
+                        />
+                        {employee.status}
+                      </span>
+                    </td>
+                    <td>{employee.formattedDate}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </TableContainer>
+        ) : (
+          <h1>Nenhum funcionário cadastrado.</h1>
+        )}
       </Container>
     </>
   );
