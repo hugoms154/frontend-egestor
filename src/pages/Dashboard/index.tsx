@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { FiUsers, FiUserCheck, FiUserX } from 'react-icons/fi';
 
 import Header from '../../components/Header';
+import Table from '../../components/Table';
 import api from '../../services/api';
 import formatCurrency from '../../utils/formatCurrency';
 import formatDate from '../../utils/formatDate';
 
-import { Container, CardContainer, Card, TableContainer } from './styles';
+import { Container, CardContainer, Card } from './styles';
 
 interface Employee {
   id: string;
@@ -79,49 +80,10 @@ const Dashboard: React.FC = () => {
           </Card>
         </CardContainer>
         {employees.length !== 0 ? (
-          <TableContainer>
-            <table>
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Cargo</th>
-                  <th>CPF</th>
-                  <th>UF</th>
-                  <th>Salário</th>
-                  <th>Status</th>
-                  <th>Data</th>
-                </tr>
-              </thead>
-              <tbody>
-                {employees.map(employee => (
-                  <tr key={employee.id}>
-                    <td>{employee.name}</td>
-                    <td>{employee.position}</td>
-                    <td>{employee.CPF}</td>
-                    <td>{employee.UF}</td>
-                    <td>
-                      <strong>{employee.formattedSalary}</strong>
-                    </td>
-                    <td>
-                      <span>
-                        <span
-                          className={
-                            employee.status === 'BLOQUEADO'
-                              ? 'blocked'
-                              : employee.status === 'ATIVO'
-                              ? 'active'
-                              : 'inactive'
-                          }
-                        />
-                        {employee.status}
-                      </span>
-                    </td>
-                    <td>{employee.formattedDate}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </TableContainer>
+          <Table
+            employees={employees}
+            titles={['Nome', 'Cargo', 'CPF', 'UF', 'Salário', 'Status', 'Data']}
+          />
         ) : (
           <h1>Nenhum funcionário cadastrado.</h1>
         )}

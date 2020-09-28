@@ -11,6 +11,7 @@ import api from '../../services/api';
 import Header from '../../components/Header';
 import Select from '../../components/Select';
 import SearchInput from '../../components/SearchInput';
+import Table from '../../components/Table';
 
 import { Container } from './styles';
 
@@ -35,6 +36,8 @@ interface Employee {
   salary: number;
   status: string;
   created_at: string;
+  formattedSalary: string;
+  formattedDate: string;
 }
 
 interface ISelect {
@@ -206,9 +209,14 @@ const Search: React.FC = () => {
           <h1>WELMCOME</h1>
         </Form>
 
-        {/* {employees.map(employee => (
-          <h1 key={employee.id}>{employee.name}</h1>
-        ))} */}
+        {employees.length !== 0 ? (
+          <Table
+            employees={employees}
+            titles={['Nome', 'Cargo', 'CPF', 'UF', 'Salário', 'Status', 'Data']}
+          />
+        ) : (
+          ''
+        )}
       </Container>
     </>
   );
