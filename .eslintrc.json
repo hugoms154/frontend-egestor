@@ -30,6 +30,8 @@
     ],
     "rules": {
       "camelcase": "off",
+      "react/prop-types": "off",
+      "no-unused-expressions": "off",
       "@typescript-eslint/ban-types": "off",
       "react/jsx-props-no-spreading": "off",
       "no-nested-ternary": "off",
