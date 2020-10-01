@@ -1,4 +1,13 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const loadingAnimation = keyframes`
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+`;
 
 export const Container = styled.div`
   width: 100%;
@@ -13,6 +22,10 @@ export const Container = styled.div`
     line-height: 54px;
     color: #969cb2;
     text-align: center;
+  }
+
+  .loading {
+    animation: ${loadingAnimation} 1s infinite linear;
   }
 `;
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FiUsers, FiUserCheck, FiUserX } from 'react-icons/fi';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 import Header from '../../components/Header';
 import Table from '../../components/Table';
@@ -24,10 +25,12 @@ interface Employee {
 
 const Dashboard: React.FC = () => {
   const [employees, setEmployees] = useState([] as Employee[]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadEmployee(): Promise<void> {
+    (async () => {
       const { data } = await api.get<Employee[]>('employees');
+      setLoading(false);
 
       const formatedEmployees: Employee[] = data.map(
         (employee: Employee): Employee => ({
@@ -37,9 +40,8 @@ const Dashboard: React.FC = () => {
         }),
       );
 
-      setEmployees(formatedEmployees);
-    }
-    loadEmployee();
+      setEmployees(formatedEmployees.reverse());
+    })();
   }, []);
 
   return (
@@ -52,7 +54,14 @@ const Dashboard: React.FC = () => {
               <p>Total de funcionários</p>
               <FiUsers size={32} color="#1B5299" />
             </header>
-            <strong>{employees.length}</strong>
+
+            <strong>
+              {loading ? (
+                <AiOutlineLoading size={20} className="loading" />
+              ) : (
+                employees.length
+              )}
+            </strong>
           </Card>
 
           <Card>
@@ -61,7 +70,11 @@ const Dashboard: React.FC = () => {
               <FiUserCheck size={32} color="#12A454" />
             </header>
             <strong>
-              {employees.filter(employee => employee.status === 'ATIVO').length}
+              {loading ? (
+                <AiOutlineLoading size={20} className="loading" />
+              ) : (
+                employees.filter(employee => employee.status === 'ATIVO').length
+              )}
             </strong>
           </Card>
 
@@ -71,15 +84,22 @@ const Dashboard: React.FC = () => {
               <FiUserX size={32} color="#E83F5B" />
             </header>
             <strong>
-              {
+              {loading ? (
+                <AiOutlineLoading size={20} className="loading" />
+              ) : (
                 employees.filter(
                   employee => employee.status === ('INATIVO' || 'BLOQUEADO'),
                 ).length
-              }
+              )}
             </strong>
           </Card>
         </CardContainer>
-        {employees.length !== 0 ? (
+
+        {loading ? (
+          <h1>
+            <AiOutlineLoading size={20} className="loading" />
+          </h1>
+        ) : employees.length !== 0 ? (
           <Table
             inputEmployees={employees}
             titles={['Nome', 'Cargo', 'CPF', 'UF', 'Salário', 'Status', 'Data']}
