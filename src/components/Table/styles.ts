@@ -23,6 +23,9 @@ export const Container = styled.section`
   .inactive {
     background: #1b5299;
   }
+  a {
+    color: #969cb3;
+  }
   @media (max-width: 659px) {
     table {
       margin-top: 32px;

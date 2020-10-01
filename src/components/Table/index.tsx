@@ -1,9 +1,11 @@
 import React, { TableHTMLAttributes, useEffect, useState } from 'react';
+import { FiEdit } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import formatCurrency from '../../utils/formatCurrency';
 import formatDate from '../../utils/formatDate';
 
 import { Container } from './styles';
-// SelectHTMLAttributes<HTMLSelectElement
+
 interface Employee {
   id: string;
   name: string;
@@ -51,7 +53,11 @@ const Table: React.FC<TableProps> = ({ inputEmployees, titles }) => {
         <tbody>
           {employees.map(employee => (
             <tr key={employee.id}>
-              <td>{employee.name}</td>
+              <td>
+                <Link to={{ pathname: '/edit', state: { employee } }}>
+                  {employee.name}
+                </Link>
+              </td>
               <td>{employee.position}</td>
               <td>{employee.CPF}</td>
               <td>{employee.UF}</td>
@@ -73,6 +79,11 @@ const Table: React.FC<TableProps> = ({ inputEmployees, titles }) => {
                 </span>
               </td>
               <td>{employee.formattedDate}</td>
+              <td>
+                <Link to={{ pathname: '/edit', state: { employee } }}>
+                  <FiEdit size={20} />
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>
