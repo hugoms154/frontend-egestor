@@ -94,7 +94,13 @@ const Insert: React.FC = () => {
           <Input name="position" placeholder="Cargo" />
           <Input name="CPF" placeholder="CPF" />
           <Input name="UF" placeholder="UF" />
-          <Input name="salary" placeholder="Salário" type="number" min="0" />
+          <Input
+            name="salary"
+            placeholder="Salário"
+            type="number"
+            min="0"
+            step="0.01"
+          />
           <Input name="status" placeholder="ATIVO | INATIVO | BLOQUEADO" />
           <Input name="created_at" type="date" />
           <button type="submit">Enviar</button>
