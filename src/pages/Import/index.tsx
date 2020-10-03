@@ -23,7 +23,6 @@ const Import: React.FC = () => {
   const history = useHistory();
 
   async function handleUpload(): Promise<void> {
-    // TODO
     Promise.all(
       uploadedFiles.map(async filex => {
         const { name, file } = filex;
@@ -39,16 +38,12 @@ const Import: React.FC = () => {
   }
 
   function submitFile(files: File[]): void {
-    // TODO
-    console.log(files);
     const acceptedFiles = files.map(uploadedFile => ({
       file: uploadedFile,
       name: uploadedFile.name,
       readableSize: filesize(uploadedFile.size),
     }));
-    console.log(acceptedFiles);
     setUploadedFiles(acceptedFiles);
-    console.log(uploadedFiles);
   }
 
   return (

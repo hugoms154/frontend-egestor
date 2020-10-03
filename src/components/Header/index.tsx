@@ -23,9 +23,6 @@ const Header: React.FC<HeaderProps> = ({ size = 'large' }: HeaderProps) => {
           {showNav ? <FiX size={32} /> : <FiMenu size={32} />}
         </button>
         <nav>
-          {
-            // Todo
-          }
           <MenuOption to="/" url={url}>
             Listagem
             <FiChevronRight size={20} />
