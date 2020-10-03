@@ -1,8 +1,8 @@
+import { parseISO } from 'date-fns';
 import React, { TableHTMLAttributes, useEffect, useState } from 'react';
 import { FiEdit } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import formatCurrency from '../../utils/formatCurrency';
-import formatDate from '../../utils/formatDate';
 
 import { Container } from './styles';
 
@@ -31,7 +31,9 @@ const Table: React.FC<TableProps> = ({ inputEmployees, titles }) => {
         (employee: Employee): Employee => ({
           ...employee,
           formattedSalary: formatCurrency(employee.salary),
-          formattedDate: formatDate(new Date(employee.created_at)),
+          formattedDate: parseISO(
+            employee.created_at.substring(0, 10),
+          ).toLocaleDateString('pt-BR'),
         }),
       );
 

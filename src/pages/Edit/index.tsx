@@ -6,6 +6,7 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
 import { Redirect, useHistory } from 'react-router-dom';
+import { formatISO, parse } from 'date-fns';
 import Header from '../../components/Header';
 
 import Input from '../../components/Input';
@@ -13,7 +14,6 @@ import Input from '../../components/Input';
 import { Container } from './styles';
 import api from '../../services/api';
 import getValidationErrors from '../../utils/getValidationErrors';
-import formatDateToInputDate from '../../utils/formatDateToInputDate';
 
 interface EmployeeData {
   name: string;
@@ -40,7 +40,7 @@ const Edit: React.FC<IIEditData> = ({ location }) => {
   const history = useHistory();
   const { state } = location;
   const created_at = state?.employee
-    ? new Date(state.employee.created_at)
+    ? parse(state.employee.created_at.substr(0, 10), 'yyyy-MM-dd', new Date())
     : undefined;
 
   const handleSubmit = useCallback(
@@ -108,16 +108,21 @@ const Edit: React.FC<IIEditData> = ({ location }) => {
           onSubmit={handleSubmit}
           initialData={{
             ...state?.employee,
-            created_at: created_at
-              ? formatDateToInputDate(created_at)
-              : new Date().toISOString().substring(0, 10),
+            created_at:
+              created_at && formatISO(created_at, { representation: 'date' }),
           }}
         >
           <Input name="name" placeholder="Nome" />
           <Input name="position" placeholder="Cargo" />
-          <Input name="CPF" placeholder="CPF" />
+          <Input name="CPF" placeholder="CPF" disabled />
           <Input name="UF" placeholder="UF" />
-          <Input name="salary" placeholder="Salário" type="number" min="0" />
+          <Input
+            name="salary"
+            placeholder="Salário"
+            type="number"
+            min="0"
+            step="0.01"
+          />
           <Input name="status" placeholder="ATIVO | INATIVO | BLOQUEADO" />
           <Input name="created_at" type="date" />
           <button type="submit">Enviar</button>

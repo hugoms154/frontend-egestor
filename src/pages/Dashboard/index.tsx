@@ -28,19 +28,26 @@ const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    (async () => {
-      const { data } = await api.get<Employee[]>('employees');
-      setLoading(false);
+    (() => {
+      api
+        .get<Employee[]>('employees')
+        .then(response => {
+          const { data } = response;
+          setLoading(false);
 
-      const formatedEmployees: Employee[] = data.map(
-        (employee: Employee): Employee => ({
-          ...employee,
-          formattedSalary: formatCurrency(employee.salary),
-          formattedDate: formatDate(new Date(employee.created_at)),
-        }),
-      );
+          const formatedEmployees: Employee[] = data.map(
+            (employee: Employee): Employee => ({
+              ...employee,
+              formattedSalary: formatCurrency(employee.salary),
+              formattedDate: formatDate(new Date(employee.created_at)),
+            }),
+          );
 
-      setEmployees(formatedEmployees.reverse());
+          setEmployees(formatedEmployees.reverse());
+        })
+        .catch(() => {
+          setLoading(false);
+        });
     })();
   }, []);
 
