@@ -37,14 +37,14 @@ const Delete: React.FC = () => {
   const handleConfirm = useCallback(async () => {
     setIErrors({ show: false, messages: [] });
     if (iCPF.length !== 11 || iCPF === '') {
-      console.log(iErrors);
       setIErrors({ show: true, messages: ['Deve conter 11 dígitos'] });
       return;
     }
     try {
-      const { data } = await api.get<Employee>(`/employees/cpf`, {
+      const { data: dataArray } = await api.get<Employee[]>(`/employees/cpf`, {
         params: { value: iCPF },
       });
+      const data = dataArray[0];
 
       setEmployee({
         ...data,
@@ -58,7 +58,7 @@ const Delete: React.FC = () => {
         messages: ['Funcionário não localizado no sistema.'],
       });
     }
-  }, [iCPF, confirm, iErrors]);
+  }, [iCPF, confirm]);
 
   return (
     <>
@@ -71,18 +71,9 @@ const Delete: React.FC = () => {
             <span>Atenção!</span>
           </h1>
           <p>Realmente deseja remover o funcionário?</p>
-          <p>
-            CPF:
-            {employee.CPF}
-          </p>
-          <p>
-            Nome:
-            {employee.name}
-          </p>
-          <p>
-            Cargo:
-            {employee.position}
-          </p>
+          <p>{`CPF: ${employee.CPF}`}</p>
+          <p>{`Nome: ${employee.name}`}</p>
+          <p>{`Cargo: ${employee.position}`}</p>
           <p>
             Status:
             <span>
@@ -98,10 +89,7 @@ const Delete: React.FC = () => {
               {employee.status}
             </span>
           </p>
-          <p>
-            Data de Cadastro:
-            {employee.formattedDate}
-          </p>
+          <p>{`Data de cadastro: ${employee.formattedDate}`}</p>
 
           <span>
             <button onClick={handleSubmit} type="button">
