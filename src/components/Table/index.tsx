@@ -82,7 +82,10 @@ const Table: React.FC<TableProps> = ({ inputEmployees, titles }) => {
               </td>
               <td>{employee.formattedDate}</td>
               <td>
-                <Link to={{ pathname: '/edit', state: { employee } }}>
+                <Link
+                  to={{ pathname: '/edit', state: { employee } }}
+                  className="edit"
+                >
                   <FiEdit size={20} />
                 </Link>
               </td>

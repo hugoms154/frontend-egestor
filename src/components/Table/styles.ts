@@ -64,13 +64,33 @@ export const Container = styled.section`
               display: flex;
               align-items: center;
             }
+            .edit {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+              padding: 8px 16px;
+              margin-top: 8px;
+              background: #12a454;
+              border-radius: 5px;
+
+              &::after {
+                content: 'Editar';
+                color: #fff;
+              }
+
+              svg {
+                color: #fff;
+                margin-right: 8px;
+              }
+            }
           }
         }
       }
     }
   }
 
-  @media screen and (min-width: 660px) and (max-width: 1119px) {
+  @media screen and (min-width: 660px) and (max-width: 1279px) {
     table {
       margin-top: 32px;
       padding-top: 32px;
@@ -105,13 +125,33 @@ export const Container = styled.section`
               display: flex;
               align-items: center;
             }
+            .edit {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+              padding: 8px 16px;
+              margin-top: 8px;
+              background: #12a454;
+              border-radius: 5px;
+
+              &::after {
+                content: 'Editar';
+                color: #fff;
+              }
+
+              svg {
+                color: #fff;
+                margin-right: 8px;
+              }
+            }
           }
         }
       }
     }
   }
 
-  @media (min-width: 1120px) {
+  @media (min-width: 1280px) {
     margin-top: 62px;
 
     table {
