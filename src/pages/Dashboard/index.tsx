@@ -95,7 +95,9 @@ const Dashboard: React.FC = () => {
                 <AiOutlineLoading size={20} className="loading" />
               ) : (
                 employees.filter(
-                  employee => employee.status === ('INATIVO' || 'BLOQUEADO'),
+                  employee =>
+                    employee.status === 'INATIVO' ||
+                    employee.status === 'BLOQUEADO',
                 ).length
               )}
             </strong>
