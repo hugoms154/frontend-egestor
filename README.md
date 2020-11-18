@@ -1,8 +1,8 @@
 ## Instalação
 Use o git [clone](https://git-scm.com/docs/git-clone) para clonar o repositório. Então instale as dependencias com yarn.
 ```bash
-git clone https://github.com/hugoms154/frontend-allu.git
-cd frontend-allu
+git clone https://github.com/hugoms154/frontend-egestor.git
+cd frontend-egestor
 
 yarn install
 ```
